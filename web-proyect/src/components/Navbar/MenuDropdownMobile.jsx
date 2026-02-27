@@ -46,11 +46,15 @@ animation: fadeOut 0.3s ease-out forwards;
 }
 
 .hide-scrollbar {
--ms-overflow-style: none;
-scrollbar-width: none;
+-ms-overflow-style: auto;
+scrollbar-width: thin;
 }
 .hide-scrollbar::-webkit-scrollbar {
-display: none;
+width: 8px;
+}
+.hide-scrollbar::-webkit-scrollbar-thumb {
+background: rgba(218, 226, 255, 0.65);
+border-radius: 9999px;
 }
 `;
 

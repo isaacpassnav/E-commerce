@@ -35,7 +35,7 @@ export default function ForgotPasswordModal({ onClose }) {
             isLight ? "text-[#6B7280]" : "text-[#C4C2E0]"
           }`}
         >
-          Introduce la dirección de correo electrónico asociada a tu cuenta de OKEA. 
+          Introduce la dirección de correo electrónico asociada a tu cuenta.
         </p>
 
         {/* Formulario */}

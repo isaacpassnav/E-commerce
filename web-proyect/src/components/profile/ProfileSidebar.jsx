@@ -105,7 +105,7 @@ export default function ProfileSidebar({
             <div className="relative w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-full overflow-hidden bg-[#E6ECFF] group">
               <img
                 src={previewImage || perfilImg}
-                alt="Usuario Okea"
+                alt="Avatar de usuario"
                 className="w-full h-full object-cover"
               />
               {isEditing && (
@@ -150,7 +150,7 @@ export default function ProfileSidebar({
                   isLight ? "text-[#1E3A8A]" : "text-white"
                 }`}
               >
-                {userName || "Usuario OKEA"}
+                {userName || "Usuario"}
               </p>
             </div>
 

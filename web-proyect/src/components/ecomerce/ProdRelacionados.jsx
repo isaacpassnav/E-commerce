@@ -86,9 +86,7 @@ export function ProdRelacionados() {
                             ref={desktopScrollRef}
                             className="flex gap-10 overflow-x-auto scrollbar-hide px-4"
                             style={{
-                                scrollBehavior: 'smooth',
-                                scrollbarWidth: 'none',
-                                msOverflowStyle: 'none'
+                                scrollBehavior: 'smooth'
                             }}
                         >
                             {productos.map((producto) => (
@@ -124,9 +122,7 @@ export function ProdRelacionados() {
                     <div 
                         className="flex gap-4 overflow-x-auto scrollbar-hide pb-4 px-2"
                         style={{
-                            scrollBehavior: 'smooth',
-                            scrollbarWidth: 'none',
-                            msOverflowStyle: 'none'
+                            scrollBehavior: 'smooth'
                         }}
                     >
                         {productos.map((producto) => (

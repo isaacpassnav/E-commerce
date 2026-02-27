@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useParams, useLocation, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useParams, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './components/ThemeContext';
 import { SortProvider } from './components/ecomerce/SortContext';
 import { CartProvider } from "./components/CartContext";
@@ -92,12 +92,9 @@ function AppContent() {
   }, []);
 
   const hideNavFooter = location.pathname === "/carrito" && isMobile;
-  if (!isLoggedIn && location.pathname !== "/login") {
-    return <Navigate to="/login" replace />;
-  }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className={`min-h-screen flex flex-col ${hideNavFooter ? "" : "pt-[76px] sm:pt-[84px]"}`}>
       {/* Oculta Navbar, SocialBar, BottomBar y FloatingActionButton en /carrito móvil */}
       {!hideNavFooter && (
         <>

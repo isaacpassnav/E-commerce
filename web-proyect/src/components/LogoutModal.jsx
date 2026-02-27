@@ -1,6 +1,6 @@
 import React from "react";
 import { useTheme } from "./ThemeContext";
-import OkeaIcon from "../assets/iconos/okea_logo.svg";
+import brandIcon from "../assets/iconos/okea_logo.svg";
 
 const LogoutModal = ({ isOpen, onClose, onConfirm }) => {
     const { isLight } = useTheme();
@@ -28,14 +28,12 @@ const LogoutModal = ({ isOpen, onClose, onConfirm }) => {
 
                     <h3 className={`text-lg font-medium flex items-center justify-center flex-wrap gap-1 ${isLight ? 'text-gray-800' : 'text-white'
                         }`}>
-                        <span>¿Seguro que deseas salir de </span>
+                        <span>¿Seguro que deseas cerrar sesión? </span>
                         <img
-                            src={OkeaIcon}
-                            alt="Okea"
+                            src={brandIcon}
+                            alt="Logo"
                             className="h-6 object-contain inline-block mb-0.5"
                         />
-
-                        <span>?</span>
                     </h3>
 
                     <div className="flex gap-4 w-full justify-center mt-2">

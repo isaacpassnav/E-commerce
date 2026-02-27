@@ -473,7 +473,7 @@ export default function Navbar() {
 		<>
 			<header
 				ref={navbarRef}
-				className={`absolute top-[4px] left-0 right-0 mx-auto 
+				className={`fixed top-[4px] left-0 right-0 mx-auto 
 					max-w-[98vw] z-50 backdrop-blur-md border rounded-full 
 					transition-colors duration-300 ${getDebugStyles("header")}`}
 				style={{

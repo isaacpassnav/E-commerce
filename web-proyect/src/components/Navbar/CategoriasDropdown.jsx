@@ -1,4 +1,4 @@
-import okeaLogoCategorias from '../../assets/iconos/okea_logo_categorias.svg';
+import brandLogoCategorias from '../../assets/iconos/okea_logo_categorias.svg';
 import {
   TechnologyIcon,
   LavadoIcon,
@@ -53,14 +53,19 @@ const animations = `
     animation: fadeOut 0.3s ease-out forwards;
   }
 
-  /* Agregar estos estilos para ocultar la barra de scroll */
+  /* Barra visible y ligera para mejorar usabilidad */
   .hide-scrollbar {
-    -ms-overflow-style: none;  /* Para Internet Explorer y Edge */
-    scrollbar-width: none;     /* Para Firefox */
+    -ms-overflow-style: auto;
+    scrollbar-width: thin;
   }
   
   .hide-scrollbar::-webkit-scrollbar {
-    display: none;  /* Para Chrome, Safari y Opera */
+    width: 8px;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(218, 226, 255, 0.65);
+    border-radius: 9999px;
   }
 `;
 
@@ -166,8 +171,8 @@ export default function CategoriasDropdown({isVisible, onClose }) {
         </button>
 
         <img
-          src={okeaLogoCategorias}
-          alt="Okea Logo Categorías"
+          src={brandLogoCategorias}
+          alt="Logo categorias"
           style={{
             width: 124,
             height: 41,

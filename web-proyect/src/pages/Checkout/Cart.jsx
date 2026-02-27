@@ -4,7 +4,7 @@ import { useCart } from "../../components/CartContext";
 //import { useNavigate } from "react-router-dom";
 import visa from "../../assets/iconos/VISAIcono.svg";
 import mastercard from "../../assets/iconos/MCIcon.svg";
-import logo_okea from "../../assets/iconos/okea_logo.svg";
+import logoBrand from "../../assets/iconos/okea_logo.svg";
 import AMEXIcon from "../../assets/iconos/AMEXIcon.svg";
 import yape from "../../assets/imagenes/yape-carrito.png";    
 import mercadopagomobil from "../../assets/iconos/mercadopagomobil.svg";
@@ -63,8 +63,8 @@ const [fechaSeleccionada, setFechaSeleccionada] = useState("");
 >
   {/* Logo */}
   <img
-    src={logo_okea}
-    alt="Logo de Okea"
+    src={logoBrand}
+    alt="Logo de la plataforma"
     className="
       w-32 mb-6 
       max-[768px]:w-28 
@@ -634,8 +634,6 @@ const [fechaSeleccionada, setFechaSeleccionada] = useState("");
       max-[412px]:pl-4 max-[412px]:pr-6"
     style={{
       scrollSnapType: "x mandatory",
-      scrollbarWidth: "none",
-      msOverflowStyle: "none",
       maxWidth: "561px", // 🔹 muestra 4 productos exactos con su espacio
     }}
   >

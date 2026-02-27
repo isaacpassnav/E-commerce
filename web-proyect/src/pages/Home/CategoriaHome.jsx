@@ -144,7 +144,7 @@ export default function CategoriaHome() {
             <div
                 ref={scrollRef}
                 className="overflow-x-auto scroll-smooth whitespace-nowrap"
-                style={{ scrollbarWidth: "none" }}
+                style={{ scrollbarWidth: "thin", msOverflowStyle: "auto" }}
             >
                 {children}
             </div>

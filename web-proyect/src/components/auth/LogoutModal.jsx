@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useTheme } from "../ThemeContext";
-import okeaLogo from "../../assets/iconos/okea_logo.svg";
+import brandLogo from "../../assets/iconos/okea_logo.svg";
 
 export default function LogoutModal({ isOpen = true, onClose, onConfirm }) {
   const { isLight } = useTheme();
@@ -54,13 +54,12 @@ export default function LogoutModal({ isOpen = true, onClose, onConfirm }) {
             isLight ? "text-[#6B7280]" : "text-[#C4C2E0]"
           }`}
         >
-          <span>¿Seguro que deseas salir de</span>
+          <span>¿Seguro que deseas cerrar sesión?</span>
           <img 
-            src={okeaLogo} 
-            alt="OKEA" 
+            src={brandLogo} 
+            alt="Logo" 
             className="h-4 sm:h-5 object-contain" 
           />
-          <span>?</span>
         </p>
 
         <div className="flex w-full gap-3 sm:gap-4">

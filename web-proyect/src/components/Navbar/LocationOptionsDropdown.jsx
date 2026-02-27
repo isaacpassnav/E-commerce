@@ -53,15 +53,19 @@ export default function LocationOptionsDropdown({ options, position, onClose }) 
         left: position.left,
         width: '310px',
         padding: '20px 8px',
-        scrollbarWidth: 'none',
-        msOverflowStyle: 'none',
+        scrollbarWidth: 'thin',
+        msOverflowStyle: 'auto',
         boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
       }}
       onClick={(e) => e.stopPropagation()}
     >
       <style jsx>{`
         div::-webkit-scrollbar {
-          display: none;
+          width: 8px;
+        }
+        div::-webkit-scrollbar-thumb {
+          background: rgba(218, 226, 255, 0.65);
+          border-radius: 9999px;
         }
       `}</style>
 

@@ -33,17 +33,20 @@ const animations = `
     animation: slideOut 0.4s ease-out forwards;
   }
 
-  /* Clases para ocultar la barra de scroll */
+  /* Barra visible para facilitar el desplazamiento */
   .hide-scrollbar {
-    /* Firefox */
-    scrollbar-width: none;
-    /* IE y Edge */
-    -ms-overflow-style: none;
+    scrollbar-width: thin;
+    -ms-overflow-style: auto;
   }
 
   .hide-scrollbar::-webkit-scrollbar {
-    /* Chrome, Safari y Opera */
-    display: none;
+    width: 8px;
+    height: 8px;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(218, 226, 255, 0.6);
+    border-radius: 9999px;
   }
 `;
 

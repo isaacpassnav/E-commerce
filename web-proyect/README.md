@@ -1,12 +1,35 @@
-# React + Vite
+# OKEA Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend del e-commerce OKEA construido con React + Vite.
 
-Currently, two official plugins are available:
+## Stack
+- React 19
+- React Router DOM 7
+- Vite 7
+- Tailwind CSS 4
+- Fluent UI Icons + React Icons
+- ESLint 9
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Scripts
+- `npm run dev`: entorno local.
+- `npm run build`: build de produccion.
+- `npm run preview`: servir build local.
+- `npm run lint`: validacion estatica.
 
-## Expanding the ESLint configuration
+## Modulos principales
+- Home comercial.
+- Catalogo por categorias.
+- Detalle de producto por slug.
+- Carrito y checkout.
+- Login/perfil (mock).
+- Favoritos.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Estructura
+- `src/pages`: paginas de negocio.
+- `src/components`: componentes UI.
+- `src/mocks`: datos de prueba.
+- `src/styles`: estilos globales.
+
+## Nota de integracion
+- El front aun consume principalmente mocks.
+- Ver roadmap de integracion en `../README.md`.

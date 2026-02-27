@@ -7,8 +7,8 @@ export const emptyUser = {
 };
 
 export function createUserFromLogin({ email, name }) {
-  const safeEmail = email || "usuario@okea.com";
-  const safeName = name || safeEmail.split("@")[0] || "Usuario OKEA";
+  const safeEmail = email || "usuario@example.com";
+  const safeName = name || safeEmail.split("@")[0] || "Usuario";
 
   return {
     id: 1,

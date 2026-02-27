@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  OkeaBotIcon, FlechaEnvioIcon, AspaChatIcon
+  OkeaBotIcon as SupportBotIcon, FlechaEnvioIcon, AspaChatIcon
 } from "../assets/iconos/Icons";
 import { useTheme } from "./ThemeContext";
 
@@ -79,9 +79,9 @@ export default function ChatWindow({ onClose }) {
             padding: '8px 16px'
           }}
         >
-          <OkeaBotIcon color={themeStyles.titleColor} style={{ marginRight: 8 }} />
+          <SupportBotIcon color={themeStyles.titleColor} style={{ marginRight: 8 }} />
           <h3 style={{ margin: 0, color: themeStyles.titleColor, fontSize: '16px', fontWeight: '600' }}>
-            Soporte OKEA
+            Soporte en linea
           </h3>
         </div>
         <button
@@ -130,7 +130,7 @@ export default function ChatWindow({ onClose }) {
               boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)'
             }}
           >
-            <OkeaBotIcon color={themeStyles.titleColor} />
+            <SupportBotIcon color={themeStyles.titleColor} />
           </div>
           <div 
             style={{ 
