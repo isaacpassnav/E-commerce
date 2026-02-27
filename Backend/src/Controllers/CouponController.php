@@ -11,8 +11,11 @@ use App\Support\Validator;
 
 final class CouponController
 {
-    public function __construct(private readonly CouponService $service)
+    private CouponService $service;
+
+    public function __construct(CouponService $service)
     {
+        $this->service = $service;
     }
 
     /**

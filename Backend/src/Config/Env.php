@@ -19,7 +19,7 @@ final class Env
 
         foreach ($lines as $line) {
             $trimmed = trim($line);
-            if ($trimmed === '' || str_starts_with($trimmed, '#')) {
+            if ($trimmed === '' || strpos($trimmed, '#') === 0) {
                 continue;
             }
 

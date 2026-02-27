@@ -6,13 +6,19 @@ namespace App\Http;
 
 final class Response
 {
+    /** @var array<string,mixed> */
+    private array $payload;
+    private int $statusCode;
+
     /**
      * @param array<string,mixed> $payload
      */
     public function __construct(
-        private readonly array $payload,
-        private readonly int $statusCode = 200
+        array $payload,
+        int $statusCode = 200
     ) {
+        $this->payload = $payload;
+        $this->statusCode = $statusCode;
     }
 
     /**

@@ -21,7 +21,7 @@ final class Validator
         }
     }
 
-    public static function int(mixed $value, string $field, int $min = 1): int
+    public static function int($value, string $field, int $min = 1): int
     {
         if (!is_numeric($value)) {
             throw new ValidationException("El campo '$field' debe ser numérico");
@@ -35,7 +35,7 @@ final class Validator
         return $intValue;
     }
 
-    public static function float(mixed $value, string $field, float $min = 0): float
+    public static function float($value, string $field, float $min = 0): float
     {
         if (!is_numeric($value)) {
             throw new ValidationException("El campo '$field' debe ser numérico");
@@ -49,7 +49,7 @@ final class Validator
         return $floatValue;
     }
 
-    public static function email(mixed $value, string $field): string
+    public static function email($value, string $field): string
     {
         $stringValue = trim((string) $value);
         if (!filter_var($stringValue, FILTER_VALIDATE_EMAIL)) {
@@ -62,7 +62,7 @@ final class Validator
     /**
      * @param string[] $allowed
      */
-    public static function oneOf(mixed $value, string $field, array $allowed): string
+    public static function oneOf($value, string $field, array $allowed): string
     {
         $stringValue = trim((string) $value);
         if (!in_array($stringValue, $allowed, true)) {
@@ -72,7 +72,7 @@ final class Validator
         return $stringValue;
     }
 
-    public static function datetime(mixed $value, string $field): string
+    public static function datetime($value, string $field): string
     {
         $stringValue = trim((string) $value);
         $dt = date_create($stringValue);

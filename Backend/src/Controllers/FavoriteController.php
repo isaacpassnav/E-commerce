@@ -6,14 +6,14 @@ namespace App\Controllers;
 
 use App\Http\Request;
 use App\Http\Response;
-use App\Services\NewsletterService;
+use App\Services\FavoriteService;
 use App\Support\Validator;
 
-final class NewsletterController
+final class FavoriteController
 {
-    private NewsletterService $service;
+    private FavoriteService $service;
 
-    public function __construct(NewsletterService $service)
+    public function __construct(FavoriteService $service)
     {
         $this->service = $service;
     }
@@ -23,12 +23,15 @@ final class NewsletterController
      */
     public function index(Request $request, array $params = []): Response
     {
-        $estado = $request->input('estado');
-        $estado = is_string($estado) ? $estado : null;
+        $userIdInput = $request->input('id_usuario');
+        $userId = null;
+        if ($userIdInput !== null && $userIdInput !== '') {
+            $userId = Validator::int($userIdInput, 'id_usuario');
+        }
 
         return Response::json([
             'ok' => true,
-            'data' => $this->service->list($estado),
+            'data' => $this->service->list($userId),
         ]);
     }
 
@@ -46,28 +49,14 @@ final class NewsletterController
     /**
      * @param array<string,string> $params
      */
-    public function update(Request $request, array $params): Response
-    {
-        $id = Validator::int($params['id'] ?? null, 'id');
-
-        return Response::json([
-            'ok' => true,
-            'data' => $this->service->update($id, $request->body()),
-        ]);
-    }
-
-    /**
-     * @param array<string,string> $params
-     */
     public function delete(Request $request, array $params): Response
     {
         $id = Validator::int($params['id'] ?? null, 'id');
-        $motivo = $request->input('motivo');
-        $this->service->delete($id, is_string($motivo) ? $motivo : null);
+        $this->service->delete($id);
 
         return Response::json([
             'ok' => true,
-            'message' => 'Suscripción dada de baja',
+            'message' => 'Favorito eliminado correctamente',
         ]);
     }
 }

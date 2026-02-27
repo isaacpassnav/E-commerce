@@ -6,18 +6,32 @@ namespace App\Http;
 
 final class Request
 {
+    private string $method;
+    private string $path;
+    /** @var array<string,mixed> */
+    private array $query;
+    /** @var array<string,mixed> */
+    private array $body;
+    /** @var array<string,string> */
+    private array $headers;
+
     /**
      * @param array<string,mixed> $query
      * @param array<string,mixed> $body
      * @param array<string,string> $headers
      */
     public function __construct(
-        private readonly string $method,
-        private readonly string $path,
-        private readonly array $query,
-        private readonly array $body,
-        private readonly array $headers
+        string $method,
+        string $path,
+        array $query,
+        array $body,
+        array $headers
     ) {
+        $this->method = $method;
+        $this->path = $path;
+        $this->query = $query;
+        $this->body = $body;
+        $this->headers = $headers;
     }
 
     public static function fromGlobals(): self
@@ -68,7 +82,7 @@ final class Request
      * @param mixed $default
      * @return mixed
      */
-    public function input(string $key, mixed $default = null): mixed
+    public function input(string $key, $default = null)
     {
         if (array_key_exists($key, $this->body)) {
             return $this->body[$key];
@@ -90,7 +104,7 @@ final class Request
     {
         $headers = [];
         foreach ($_SERVER as $key => $value) {
-            if (!str_starts_with($key, 'HTTP_')) {
+            if (strpos($key, 'HTTP_') !== 0) {
                 continue;
             }
 
