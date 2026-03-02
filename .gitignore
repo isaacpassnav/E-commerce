@@ -1,0 +1,22 @@
+# Environment files
+.env
+.env.*
+!.env.example
+Backend/.env
+web-proyect/.env
+web-proyect/.env.*
+
+# Dependencies
+node_modules/
+web-proyect/node_modules/
+
+# Build outputs
+dist/
+web-proyect/dist/
+
+# IDE and OS files
+.idea/
+.vscode/
+*.log
+Thumbs.db
+Desktop.ini

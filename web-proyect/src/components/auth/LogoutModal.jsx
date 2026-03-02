@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { useTheme } from "../ThemeContext";
-import brandLogo from "../../assets/iconos/okea_logo.svg";
 
 export default function LogoutModal({ isOpen = true, onClose, onConfirm }) {
   const { isLight } = useTheme();
@@ -56,7 +55,7 @@ export default function LogoutModal({ isOpen = true, onClose, onConfirm }) {
         >
           <span>¿Seguro que deseas cerrar sesión?</span>
           <img 
-            src={brandLogo} 
+            src="/tu_logo.svg" 
             alt="Logo" 
             className="h-4 sm:h-5 object-contain" 
           />

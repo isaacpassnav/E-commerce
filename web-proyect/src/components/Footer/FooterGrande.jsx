@@ -10,6 +10,8 @@ import Instagram from "../../assets/iconos/Instagram.svg";
 import YouTube from "../../assets/iconos/YouTube.svg";
 import LinkedIn from "../../assets/iconos/LinkedIn.svg";
 import TikTok from "../../assets/iconos/TikTok.svg";
+import GitHub from "../../assets/iconos/GitHub.svg";
+import TwitterX from "../../assets/iconos/TwitterX.svg";
 
 const siteLinks = [
   { label: "Inicio", href: "/" },
@@ -39,12 +41,12 @@ const socialLinks = [
   {
     label: "GitHub",
     href: "https://github.com/isaacpassnav",
-    icon: null,
+    icon: GitHub,
   },
   { label: "Facebook", href: "https://www.facebook.com/", icon: Facebook },
   { label: "YouTube", href: "https://www.youtube.com/", icon: YouTube },
   { label: "TikTok", href: "https://www.tiktok.com/", icon: TikTok },
-  { label: "X", href: "https://x.com/", icon: null },
+  { label: "X", href: "https://x.com/", icon: TwitterX },
 ];
 
 export default function FooterGrande() {

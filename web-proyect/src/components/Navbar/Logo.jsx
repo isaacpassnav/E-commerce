@@ -1,6 +1,4 @@
 
-    import brandLogo from '../../assets/iconos/okea_logo.svg';
-    import brandLogoDark from '../../assets/iconos/okea_logo_categorias.svg';
     import { useNavigate } from 'react-router-dom';
     import { useState, useEffect } from 'react';
 
@@ -46,7 +44,7 @@
                 aria-label="Ir al inicio"
             >
                 <img 
-                    src={theme === 'dark' ? brandLogoDark : brandLogo} 
+                    src="/tu_logo.svg" 
                     alt="Logo de la plataforma" 
                     className="h-10 w-auto object-contain max-w-full max-h-full" 
                 />

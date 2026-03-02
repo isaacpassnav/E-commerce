@@ -7,7 +7,6 @@ use App\Controllers\CouponController;
 use App\Controllers\FavoriteController;
 use App\Controllers\NewsletterController;
 use App\Http\Request;
-use App\Http\Response;
 use App\Http\Router;
 
 return static function (
@@ -17,12 +16,6 @@ return static function (
     FavoriteController $favoriteController,
     CartController $cartController
 ): void {
-    $router->add('GET', '/api/health', static fn (Request $request): Response => Response::json([
-        'ok' => true,
-        'service' => 'okea-backend',
-        'timestamp' => date(DATE_ATOM),
-    ]));
-
     $router->add('GET', '/api/coupons', [$couponController, 'index']);
     $router->add('POST', '/api/coupons', [$couponController, 'create']);
     $router->add('GET', '/api/coupons/{id}', [$couponController, 'show']);

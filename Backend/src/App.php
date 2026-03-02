@@ -23,26 +23,33 @@ use Throwable;
 final class App
 {
     private Router $router;
+    private ?Throwable $bootError = null;
 
     public function __construct()
     {
         $this->router = new Router();
-        $pdo = Connection::make();
+        $this->registerBaseRoutes();
 
-        $couponController = new CouponController(new CouponService($pdo));
-        $newsletterController = new NewsletterController(new NewsletterService($pdo));
-        $favoriteController = new FavoriteController(new FavoriteService($pdo));
-        $cartController = new CartController(new CartService($pdo));
+        try {
+            $pdo = Connection::make();
 
-        /** @var callable $registerRoutes */
-        $registerRoutes = require __DIR__ . '/routes.php';
-        $registerRoutes(
-            $this->router,
-            $couponController,
-            $newsletterController,
-            $favoriteController,
-            $cartController
-        );
+            $couponController = new CouponController(new CouponService($pdo));
+            $newsletterController = new NewsletterController(new NewsletterService($pdo));
+            $favoriteController = new FavoriteController(new FavoriteService($pdo));
+            $cartController = new CartController(new CartService($pdo));
+
+            /** @var callable $registerRoutes */
+            $registerRoutes = require __DIR__ . '/routes.php';
+            $registerRoutes(
+                $this->router,
+                $couponController,
+                $newsletterController,
+                $favoriteController,
+                $cartController
+            );
+        } catch (Throwable $e) {
+            $this->bootError = $e;
+        }
     }
 
     public function run(): void
@@ -50,6 +57,7 @@ final class App
         try {
             $request = Request::fromGlobals();
             $this->guardApiKey($request);
+            $this->guardBoot($request);
             $response = $this->router->dispatch($request);
         } catch (HttpException $e) {
             $response = Response::json([
@@ -64,6 +72,42 @@ final class App
         }
 
         $response->send();
+    }
+
+    private function registerBaseRoutes(): void
+    {
+        $this->router->add('GET', '/api/health', function (): Response {
+            $dbReady = $this->bootError === null;
+
+            $payload = [
+                'ok' => $dbReady,
+                'service' => 'okea-backend',
+                'timestamp' => date(DATE_ATOM),
+                'database' => [
+                    'status' => $dbReady ? 'up' : 'down',
+                ],
+            ];
+
+            $isDebug = filter_var(Env::get('APP_DEBUG', 'false'), FILTER_VALIDATE_BOOLEAN);
+            if (!$dbReady && $isDebug && $this->bootError !== null) {
+                $payload['database']['error'] = $this->bootError->getMessage();
+            }
+
+            return Response::json($payload, $dbReady ? 200 : 503);
+        });
+    }
+
+    private function guardBoot(Request $request): void
+    {
+        if ($this->bootError === null) {
+            return;
+        }
+
+        if ($request->path() === '/api/health') {
+            return;
+        }
+
+        throw new HttpException('Servicio no disponible temporalmente', 503);
     }
 
     private function guardApiKey(Request $request): void

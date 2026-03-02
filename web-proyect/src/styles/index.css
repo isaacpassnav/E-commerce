@@ -4,14 +4,21 @@
 
 html, body {
   height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
   overflow-y: auto;
+  overflow-x: hidden;
   scroll-behavior: smooth;
   font-family: 'Poppins', sans-serif;
   -ms-overflow-style: auto;
   scrollbar-width: thin;
   scrollbar-color: rgba(44, 80, 158, 0.65) transparent;
+}
+
+#root {
+  width: 100%;
+  overflow-x: hidden;
 }
 
 body {

@@ -4,7 +4,6 @@ import { useCart } from "../../components/CartContext";
 //import { useNavigate } from "react-router-dom";
 import visa from "../../assets/iconos/VISAIcono.svg";
 import mastercard from "../../assets/iconos/MCIcon.svg";
-import logoBrand from "../../assets/iconos/okea_logo.svg";
 import AMEXIcon from "../../assets/iconos/AMEXIcon.svg";
 import yape from "../../assets/imagenes/yape-carrito.png";    
 import mercadopagomobil from "../../assets/iconos/mercadopagomobil.svg";
@@ -63,7 +62,7 @@ const [fechaSeleccionada, setFechaSeleccionada] = useState("");
 >
   {/* Logo */}
   <img
-    src={logoBrand}
+    src="/tu_logo.svg"
     alt="Logo de la plataforma"
     className="
       w-32 mb-6 

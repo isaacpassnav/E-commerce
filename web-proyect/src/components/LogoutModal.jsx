@@ -1,6 +1,5 @@
 import React from "react";
 import { useTheme } from "./ThemeContext";
-import brandIcon from "../assets/iconos/okea_logo.svg";
 
 const LogoutModal = ({ isOpen, onClose, onConfirm }) => {
     const { isLight } = useTheme();
@@ -30,7 +29,7 @@ const LogoutModal = ({ isOpen, onClose, onConfirm }) => {
                         }`}>
                         <span>¿Seguro que deseas cerrar sesión? </span>
                         <img
-                            src={brandIcon}
+                            src="/tu_logo.svg"
                             alt="Logo"
                             className="h-6 object-contain inline-block mb-0.5"
                         />

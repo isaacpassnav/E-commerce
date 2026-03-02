@@ -1,4 +1,3 @@
-import brandLogoCategorias from '../../assets/iconos/okea_logo_categorias.svg';
 import {
   TechnologyIcon,
   LavadoIcon,
@@ -171,7 +170,7 @@ export default function CategoriasDropdown({isVisible, onClose }) {
         </button>
 
         <img
-          src={brandLogoCategorias}
+          src="/tu_logo.svg"
           alt="Logo categorias"
           style={{
             width: 124,

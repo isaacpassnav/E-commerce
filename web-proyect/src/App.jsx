@@ -5,7 +5,7 @@ import { SortProvider } from './components/ecomerce/SortContext';
 import { CartProvider } from "./components/CartContext";
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
-import SocialBar from './components/SocialBar';
+// import SocialBar from './components/SocialBar';
 import BottomBar from './components/BottomBar';
 import FloatingActionButton from './components/FloatingActionButton';
 import PreguntasFrecuentes from './components/PreguntasFrecuentes';
@@ -94,12 +94,12 @@ function AppContent() {
   const hideNavFooter = location.pathname === "/carrito" && isMobile;
 
   return (
-    <div className={`min-h-screen flex flex-col ${hideNavFooter ? "" : "pt-[76px] sm:pt-[84px]"}`}>
+    <div className={`min-h-screen flex flex-col overflow-x-hidden ${hideNavFooter ? "" : "pt-[76px] sm:pt-[84px]"}`}>
       {/* Oculta Navbar, SocialBar, BottomBar y FloatingActionButton en /carrito móvil */}
       {!hideNavFooter && (
         <>
           <Navbar />
-          <SocialBar />
+          {/* <SocialBar /> */}
           <BottomBar />
           <FloatingActionButton />
         </>
