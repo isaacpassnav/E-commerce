@@ -46,10 +46,11 @@ const UserLogin = forwardRef((props, ref) => {
         />
       </div>
       <span className="pl-[30px] sm:pl-[38px] font-poppins font-medium text-[13px] sm:text-[14px] leading-[20px] sm:leading-[24px] tracking-[0.2px] hidden md:inline">
-        Hola, Inicie Sesión
+        Hola, Inicia sesion
       </span>
     </button>
   );
 });
 
 export default UserLogin;
+

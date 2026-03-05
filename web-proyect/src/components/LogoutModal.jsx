@@ -1,5 +1,6 @@
 import React from "react";
 import { useTheme } from "./ThemeContext";
+import brandIcon from "../assets/iconos/tu_logo.svg";
 
 const LogoutModal = ({ isOpen, onClose, onConfirm }) => {
     const { isLight } = useTheme();
@@ -29,7 +30,7 @@ const LogoutModal = ({ isOpen, onClose, onConfirm }) => {
                         }`}>
                         <span>¿Seguro que deseas cerrar sesión? </span>
                         <img
-                            src="/tu_logo.svg"
+                            src={brandIcon}
                             alt="Logo"
                             className="h-6 object-contain inline-block mb-0.5"
                         />

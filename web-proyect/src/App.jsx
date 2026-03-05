@@ -144,6 +144,48 @@ function AppContent() {
           }
         />       {/*  NUEVA RUTA login */}
         <Route
+          path="/mis-compras"
+          element={
+            <>
+              <PerfilPage
+                user={user}
+                isLoggedIn={isLoggedIn}
+                onLogout={handleLogout}
+                onUpdateName={handleUpdateName}
+              />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/tarjetas"
+          element={
+            <>
+              <PerfilPage
+                user={user}
+                isLoggedIn={isLoggedIn}
+                onLogout={handleLogout}
+                onUpdateName={handleUpdateName}
+              />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/soporte"
+          element={
+            <>
+              <PerfilPage
+                user={user}
+                isLoggedIn={isLoggedIn}
+                onLogout={handleLogout}
+                onUpdateName={handleUpdateName}
+              />
+              <Footer />
+            </>
+          }
+        />
+        <Route
           path="/login"
           element={
             <>

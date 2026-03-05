@@ -1,5 +1,6 @@
 // src/components/auth/LoginCard.jsx
 import { useState } from "react";
+import brandLogo from "../../assets/iconos/tu_logo.svg";
 import googleIcon from "../../assets/imagenes/login/google.png";
 import githubIcon from "../../assets/imagenes/login/github.png";
 import facebookIcon from "../../assets/imagenes/login/facebook.png";
@@ -41,7 +42,7 @@ export default function LoginCard({ onForgotPassword, onMockLogin }) {
       <div className="px-5 sm:px-8 md:px-10">
         <div className="flex justify-center mb-4 sm: mb-6 mt-2">
           <img
-            src="/tu_logo.svg"
+            src={brandLogo}
             alt="Logo principal"
             className="h-10 sm:h-12 w-auto object-contain max-w-full"
           />

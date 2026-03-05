@@ -110,7 +110,8 @@ export default function Recomendados() {
                   key={p.id}
                   {...p}
                   liked={liked[p.id]}
-                  added={addedItems[p.id]} // ✅ Aquí le pasamos el estado de agregado
+                  added={addedItems[p.id]}
+                  autoAddToCart={false}
                   onLike={toggleLike}
                   onAdd={() => handleAgregarAlCarrito(p)}
                   getCardStyle={getCardStyle}
@@ -133,6 +134,7 @@ export default function Recomendados() {
                   {...p}
                   liked={liked[p.id]}
                   added={addedItems[p.id]}
+                  autoAddToCart={false}
                   onLike={toggleLike}
                   onAdd={() => handleAgregarAlCarrito(p)}
                   getCardStyle={getCardStyle}

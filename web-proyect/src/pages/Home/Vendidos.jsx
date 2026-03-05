@@ -143,6 +143,7 @@ export default function Vendidos() {
                     {...p}
                     liked={liked[p.id]}
                     added={addedItems[p.id]}
+                    autoAddToCart={false}
                     onLike={toggleLike}
                     onAdd={() => handleAgregarAlCarrito(p)} // ✅ carrito funcional
                     getCardStyle={getCardStyle}
@@ -165,6 +166,7 @@ export default function Vendidos() {
                     {...p}
                     liked={liked[p.id]}
                     added={addedItems[p.id]}
+                    autoAddToCart={false}
                     onLike={toggleLike}
                     onAdd={() => handleAgregarAlCarrito(p)}
                     getCardStyle={getCardStyle}

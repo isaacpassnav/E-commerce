@@ -71,8 +71,8 @@ export default function UserDropdown({ onLogout, onSelect, style, isVisible }) {
 
   const buttons = [
     { label: 'Mi cuenta', key: 'cuenta', route: '/perfil' },
-    { label: 'Mis Compras', key: 'compras', route: '/perfil' },
-    { label: 'Promociones', key: 'promociones', route: '/perfil' },
+    { label: 'Mis Compras', key: 'compras', route: '/mis-compras' },
+    { label: 'Promociones', key: 'promociones', route: '/ofertas' },
     { label: 'Favoritos', key: 'favoritos', route: '/perfil_favoritos' },
   ];
 

@@ -17,6 +17,7 @@ import {
   CloseIcon,
   SalirIcon,
 } from '../../assets/iconos/Icons';
+import brandLogoCategorias from "../../assets/iconos/tu_logo.svg";
 import { CategoriasDetalle } from './categoriasDetalle.js';
 import CategoriaDetalleDropdown from './CategoriaDetalleDropdown.jsx';
 import { useState, useEffect } from 'react';
@@ -170,7 +171,7 @@ export default function CategoriasDropdown({isVisible, onClose }) {
         </button>
 
         <img
-          src="/tu_logo.svg"
+          src={brandLogoCategorias}
           alt="Logo categorias"
           style={{
             width: 124,

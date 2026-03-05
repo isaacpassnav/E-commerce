@@ -11,7 +11,6 @@ import imagentelefono from "../../assets/imagenes/Home/presentacionImagentelefon
 export default function Presentacion() {
     // --- Estados presentación ---
     const [currentPres, setCurrentPres] = useState(0);
-    const [setPrevPres] = useState(0);
     const [circleGrow, setCircleGrow] = useState(false);
 
     // --- Tema ---
@@ -253,23 +252,33 @@ export default function Presentacion() {
           ))}
 
           {/* Controles */}
-          <div className=" absolute bottom-2 w-full flex items-center justify-evenly px-10 z-50">
-            {/* Flecha izquierda */}
-            <button onClick={prevSlidePresentacion} className="absolute left-1 bottom-30 md:relative md:left-0 md:bottom-0   text-4xl text-white font-bold rounded-full pb-[3.5px] hover:bg-white/30 transition px-2">
-              {"<"}
-            </button>
+          <div className="absolute inset-x-0 bottom-3 md:bottom-6 z-50">
+            <div className="relative mx-auto w-full max-w-[1200px] px-3 md:px-8 flex items-center justify-center">
+              {/* Flecha izquierda */}
+              <button
+                onClick={prevSlidePresentacion}
+                aria-label="Slide anterior"
+                className="absolute left-0 md:left-2 h-10 w-10 flex items-center justify-center text-4xl leading-none text-white font-bold rounded-full hover:bg-white/30 transition"
+              >
+                {"<"}
+              </button>
 
-            {/* Indicadores */}
-            <div className="absolute left-1/2 scale-50 md:scale-100 -mt-3  md:mt-1 transform -translate-x-1/2 flex gap-3 ">
-              {slidesPresentacion.map((_, index) => (
-                <div key={index} onClick={() => { setPrevPres(currentPres); setCurrentPres(index); }} className={`w-4 h-4 rounded-full cursor-pointer transition-transform ${ currentPres === index ? "bg-gray-400/50 scale-150" : "bg-gray-400/50" }`}></div>
-              ))}
+              {/* Indicadores */}
+              <div className="scale-75 md:scale-100 flex gap-3">
+                {slidesPresentacion.map((_, index) => (
+                  <div key={index} onClick={() => setCurrentPres(index)} className={`w-4 h-4 rounded-full cursor-pointer transition-transform ${ currentPres === index ? "bg-gray-400/50 scale-150" : "bg-gray-400/50" }`}></div>
+                ))}
+              </div>
+
+              {/* Flecha derecha */}
+              <button
+                onClick={nextSlidePresentacion}
+                aria-label="Siguiente slide"
+                className="absolute right-0 md:right-2 h-10 w-10 flex items-center justify-center text-4xl leading-none text-white font-bold rounded-full hover:bg-white/30 transition"
+              >
+                {">"}
+              </button>
             </div>
-
-            {/* Flecha derecha */}
-            <button onClick={nextSlidePresentacion} className="absolute right-1 bottom-30 md:relative md:left-0 md:bottom-0  text-4xl text-white font-bold rounded-full pb-[3.5px] hover:bg-white/30 transition px-2">
-              {">"}
-            </button>
           </div>
         </div>
       </section>

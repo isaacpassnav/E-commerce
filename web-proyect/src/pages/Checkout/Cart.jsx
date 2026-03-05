@@ -5,6 +5,7 @@ import { useCart } from "../../components/CartContext";
 import visa from "../../assets/iconos/VISAIcono.svg";
 import mastercard from "../../assets/iconos/MCIcon.svg";
 import AMEXIcon from "../../assets/iconos/AMEXIcon.svg";
+import logoBrand from "../../assets/iconos/tu_logo.svg";
 import yape from "../../assets/imagenes/yape-carrito.png";    
 import mercadopagomobil from "../../assets/iconos/mercadopagomobil.svg";
 import yapemobil from "../../assets/iconos/yapemobil.svg";
@@ -17,8 +18,10 @@ import { Tag24Regular, ChevronLeftRegular, ChevronRightRegular , Password24Regul
 const Cart = () => {
   const { carrito, actualizarCantidad, eliminarProducto } = useCart();
   const [paso, setPaso] = useState(1); // 1 = productos, 2 = formulario, 3 = métodos de pago
+  const [deliveryEnabled, setDeliveryEnabled] = useState(true);
 
-  const costoDeEnvio = 10;
+  const carritoVacio = carrito.length === 0;
+  const costoDeEnvio = deliveryEnabled ? 10 : 0;
   const subTotal = carrito.reduce((acc, producto) =>
     acc + producto.precio * producto.cantidad
   , 0);
@@ -62,7 +65,7 @@ const [fechaSeleccionada, setFechaSeleccionada] = useState("");
 >
   {/* Logo */}
   <img
-    src="/tu_logo.svg"
+    src={logoBrand}
     alt="Logo de la plataforma"
     className="
       w-32 mb-6 
@@ -73,6 +76,7 @@ const [fechaSeleccionada, setFechaSeleccionada] = useState("");
   {/* Botones — ocultos en pantallas <= 412px */}
   <div className="flex flex-col gap-2 mt-4 w-full items-start max-[768px]:items-center max-[412px]:hidden">
     <button
+  disabled={carritoVacio}
       className={`w-60 h-10 flex justify-between md:w-full md:min-w-52 lg:w-52 items-center px-4 py-2 rounded-2xl 
         ${paso >= 1 ? "bg-[#1C4390] text-white" : "hover:bg-gray-200"}
         max-[1280px]:w-52 max-[768px]:w-60 max-[412px]:w-full`}
@@ -358,6 +362,24 @@ const [fechaSeleccionada, setFechaSeleccionada] = useState("");
   Datos del cliente y envío
 </h1>
 
+    <div className="mb-4 flex items-center justify-between rounded-xl border border-gray-300 bg-white px-4 py-3 max-[412px]:bg-transparent max-[412px]:border-gray-200">
+      <div className="text-sm text-gray-700">
+        <span className="font-semibold">Delivery:</span>{" "}
+        {deliveryEnabled ? "Activado" : "Desactivado (Recojo en tienda)"}
+      </div>
+      <button
+        type="button"
+        onClick={() => setDeliveryEnabled((prev) => !prev)}
+        className={`px-4 py-2 rounded-full text-xs font-semibold transition ${
+          deliveryEnabled
+            ? "bg-[#1C4390] text-white hover:bg-[#16397a]"
+            : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+        }`}
+      >
+        {deliveryEnabled ? "Desactivar" : "Activar"}
+      </button>
+    </div>
+
 
     {/* Contenedor con scroll */}
     <div
@@ -424,6 +446,7 @@ const [fechaSeleccionada, setFechaSeleccionada] = useState("");
       </div>
 
       {/* Bloque Dirección */}
+      {deliveryEnabled ? (<>
       <div
   className="bg-white p-6 rounded-xl shadow-sm mb-6
     max-[768px]:p-5
@@ -570,7 +593,23 @@ const [fechaSeleccionada, setFechaSeleccionada] = useState("");
   />
   términos y condiciones
 </label>
-</div>
+</div>      </>
+      ) : (
+        <div
+          className="bg-white p-6 rounded-xl shadow-sm mb-6
+            max-[768px]:p-5
+            max-[412px]:p-4
+            max-[412px]:bg-transparent max-[412px]:shadow-none max-[412px]:rounded-none
+            max-[412px]:mt-[-10px] max-[412px]:ml-[-12px]"
+        >
+          <h2 className="text-lg font-semibold text-gray-800 mb-4 max-[412px]:text-base">
+            Recojo en tienda
+          </h2>
+          <p className="text-sm text-gray-600">
+            El delivery est� desactivado. Puedes continuar con recojo en tienda sin costo de env�o.
+          </p>
+        </div>
+      )}
 
     </div>
   </>
@@ -1087,6 +1126,8 @@ const [fechaSeleccionada, setFechaSeleccionada] = useState("");
 
     <button
   onClick={() => {
+    if (carritoVacio) return;
+
     if (window.innerWidth <= 412) {
       if (paso === 3) {
         setPaso(4); // ➜ mostrar Paso 4 en móvil
@@ -1102,10 +1143,15 @@ const [fechaSeleccionada, setFechaSeleccionada] = useState("");
       setPaso((prev) => (prev === 3 ? 1 : prev + 1));
     }
   }}
-  className="w-full py-3 bg-[#DFE162] text-gray-900 rounded-full font-medium text-xs hover:bg-yellow-400 transition
-    max-[412px]:py-2.5"
+  className={`w-full py-3 rounded-full font-medium text-xs transition max-[412px]:py-2.5 ${
+    carritoVacio
+      ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+      : "bg-[#DFE162] text-gray-900 hover:bg-yellow-400"
+  }`}
 >
-  {window.innerWidth <= 412 && paso === 4
+  {carritoVacio
+    ? "Agrega productos para continuar"
+    : window.innerWidth <= 412 && paso === 4
     ? "Confirmar compra"
     : window.innerWidth <= 412 && paso === 3
     ? "Realizar pago"
@@ -1129,3 +1175,4 @@ const [fechaSeleccionada, setFechaSeleccionada] = useState("");
 };
 
 export default Cart;
+

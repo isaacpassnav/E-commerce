@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {FavoritoCardIcon, EstrellaIcon, CarritoProductoIcon} from "../../assets/iconos/Icons";
 import { useNavigate } from 'react-router-dom';
 import { slugify } from "../../utils/slugify";
+import { useCart } from "../CartContext";
 
 export function ProductCard({id,imagen, imgHover, marca, modelo, descripcion, precio, precioSinDescuento, etiqueta, calificacion, categoria, colores, isLight}) {
   const [liked, setLiked] = useState(false);
@@ -9,6 +10,7 @@ export function ProductCard({id,imagen, imgHover, marca, modelo, descripcion, pr
   const [added, setAdded] = useState(false);
   const [imageHover, setImageHover] = useState(false);
   const [selectedColor, setSelectedColor] = useState(0);
+  const { agregarAlCarrito, carrito } = useCart();
 
   const iconColor = added ? "#FFFFFF" : (hover ? "#FFFFFF" : "#484900");
   
@@ -18,6 +20,32 @@ export function ProductCard({id,imagen, imgHover, marca, modelo, descripcion, pr
     ? "#FBC101"
     : "#EB5A45";
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const existsInCart = carrito.some((producto) => producto.id === id);
+    setAdded(existsInCart);
+  }, [carrito, id]);
+
+  const handleAddToCart = (event) => {
+    event.stopPropagation();
+
+    const numericPrice =
+      typeof precio === "number"
+        ? precio
+        : Number(String(precio).replace(/[^\d.]/g, ""));
+
+    agregarAlCarrito({
+      id,
+      nombre: modelo || marca || "Producto",
+      precio: Number.isFinite(numericPrice) ? numericPrice : 0,
+      imagen: colores && colores.length > 0 ? colores[selectedColor].imagen : imagen,
+      descripcion: descripcion || "Producto de catÃ¡logo",
+      cantidad: 1,
+    });
+
+    setAdded(true);
+  };
+
   const handleNavigate = () => {
     const Categoriaslug = slugify(categoria || "");
     const productSlug = slugify(/*id || */modelo || marca || descripcion || "producto");
@@ -162,15 +190,7 @@ export function ProductCard({id,imagen, imgHover, marca, modelo, descripcion, pr
         className={`absolute bottom-3 flex items-center text-[11px] justify-center py-2 px-7 rounded-4xl cursor-pointer ${added ? 'bg-[#EB5A45] text-white' : isLight ?'bg-[#E4E666] text-[#484900]': 'bg-[#F5F692] text-[#251F67]'} hover:bg-[#EB5A45] hover:text-white transition-colors duration-500 ease-out sm:text-[14px]`}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
-        onClick={(event) => {
-          event.stopPropagation();
-          setAdded(!added);
-          if (added) {
-            setTimeout(() => {
-              setHover(false);
-            }, 500);
-          }
-        }}
+        onClick={handleAddToCart}
         style={{
           fontFamily: 'Inter, sans-serif',
           fontWeight: 500,

@@ -6,6 +6,8 @@ import { ShoppingCartIcon } from "../../assets/iconos/iconoHome";
 import { EnvioEstadarIcon, EnvioExpressoIcon, DevolucionesDetalleIcon, EntregaDetalleIcon } from "../../assets/iconos/Icons";
 import { useTheme } from "../ThemeContext";
 import TechnicalSpecifications from "../TechnicalSpecifications";
+import { useCart } from "../CartContext";
+import { slugify } from "../../utils/slugify";
 
 export default function DetalleProducto({
     NombreProducto,
@@ -22,6 +24,7 @@ export default function DetalleProducto({
     Reseñas,
 }) {
     const { isLight } = useTheme();
+    const { agregarAlCarrito } = useCart();
     const [liked, setLiked] = useState(false);
     const [added, setAdded] = useState(false);
     const [contactarAdded, setContactarAdded] = useState(false);
@@ -34,6 +37,26 @@ export default function DetalleProducto({
     const thumbnailContainerRef = useRef(null);
     const thumbnailRefs = useRef([]);
     const productSpecifications = Especificaciones;
+    const handleAddToCart = () => {
+        const safeQty = quantity > 0 ? quantity : 1;
+        const numericPrice =
+            typeof PrecioActual === "number"
+                ? PrecioActual
+                : Number(String(PrecioActual).replace(/[^\d.]/g, ""));
+
+        const mainImage = productImages[selectedImageIndex] || productImages[0] || "";
+
+        agregarAlCarrito({
+            id: `${slugify(Marca || "marca")}-${slugify(NombreProducto || "producto")}`,
+            nombre: NombreProducto || "Producto",
+            precio: Number.isFinite(numericPrice) ? numericPrice : 0,
+            imagen: mainImage,
+            descripcion: DescripcionCorta || DescripcionProducto?.[0] || "Producto de catálogo",
+            cantidad: safeQty,
+        });
+
+        setAdded(true);
+    };
     const [activeInfoTab, setActiveInfoTab] = useState('descripcion');
     const handleAccordionClick = (tabName) => {
         setActiveInfoTab(prevTab => prevTab === tabName ? null : tabName);
@@ -327,7 +350,7 @@ export default function DetalleProducto({
                     <div className="hidden lg:flex mt-2 items-center gap-2">
                         <button
                             className={`w-[88%] h-[32px] flex items-center justify-center gap-2 py-6 px-7 rounded-4xl cursor-pointer ${added ? 'bg-[#EB5A45] text-white' : 'bg-[#DFE162] text-[#484900]'} transition-colors duration-500 ease-out font-[Poppins, sans-serif] font-medium text-[14px]`}
-                            onClick={() => setAdded(!added)}>
+                            onClick={handleAddToCart}>
                             <span
                                 style={{
                                     display: 'flex',
@@ -351,7 +374,7 @@ export default function DetalleProducto({
                         </button>
                         <button
                             className={`flex items-center justify-center w-[48px] h-[48px] cursor-pointer ${added ? 'bg-[#EB5A45]' : 'bg-[#F5F692]'} transition-colors duration-500 ease-out rounded-full`}
-                            onClick={() => setAdded(!added)}
+                            onClick={handleAddToCart}
                         >
                             <AddProductToCarIcon />
                         </button>
@@ -412,14 +435,14 @@ export default function DetalleProducto({
                 <div className={`mx-auto w-full max-w-[480px] flex items-center justify-between gap-3 rounded-[32px] ${isLight ? 'bg-[#2643A4]' : 'bg-[#403F57]'} p-6 shadow-xl motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-in-out`}>
                     <button
                         className={`flex-1 h-12 flex items-center justify-center gap-2 rounded-full ${added ? 'bg-[#EB5A45] text-white' : 'bg-[#DFE162] text-[#484900]'} transition-colors duration-500 ease-out font-[Poppins, sans-serif] font-medium text-[14px]`}
-                        onClick={() => setAdded(!added)}
+                        onClick={handleAddToCart}
                     >
                         <ShoppingCartIcon color={added ? '#FFFFFF' : '#484900'} />
                         {added ? 'Producto agregado' : 'Agregar al carrito'}
                     </button>
                     <button
                         className={`flex items-center justify-center w-12 h-12 rounded-full ${added ? 'bg-[#EB5A45]' : 'bg-[#F5F692]'} transition-colors duration-500 ease-out`}
-                        onClick={() => setAdded(!added)}
+                        onClick={handleAddToCart}
                         aria-label="Agregar rápido"
                     >
                         <AddProductToCarIcon />

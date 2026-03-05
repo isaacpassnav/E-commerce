@@ -2,9 +2,23 @@ import {HeartIconblack, ShoppingCartIcon } from "../../assets/iconos/iconoHome";
 import { EstrellaIcon, FavoritoCardIcon } from "../../assets/iconos/Icons";
 import { useState } from "react";
 import laptopImg from "../../assets/imagenes/laptop.png";
+import { useCart } from "../CartContext";
 export function CardProductosRel() {
     const [liked, setLiked] = useState(false);
     const [added, setAdded] = useState(false);
+    const { agregarAlCarrito } = useCart();
+
+    const handleAddToCart = () => {
+        agregarAlCarrito({
+            id: "card-rel-laptop",
+            nombre: "Wooden Sofa Chair",
+            precio: 80,
+            imagen: laptopImg,
+            descripcion: "Producto relacionado",
+            cantidad: 1,
+        });
+        setAdded(true);
+    };
     return(
         <div className="w-[230px] h-[368px] bg-[#F4F3FA] rounded-3xl overflow-hidden hover:border-[#EB5A45] border border-transparent group">
             <div className="relative w-57.5 h-50 bg-[#EEEDF4]">
@@ -30,7 +44,7 @@ export function CardProductosRel() {
                 <div className="justify-center flex">
                     <button 
                     className={`flex py-3  w-49.5 px-7 mt-3 mb-4 h-10 rounded-4xl ${added ? 'bg-[#1C4390] text-white' : 'bg-[#DFE162]/80 text-[#484900]'} cursor-pointer`} 
-                    onClick={() => setAdded(!added)}>
+                    onClick={handleAddToCart}>
                         <div className="scale-120 flex">    
                             <div className="scale-60 "
                             style={{

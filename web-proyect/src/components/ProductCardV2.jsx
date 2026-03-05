@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useTheme } from "./ThemeContext";
+import { useCart } from "./CartContext";
 import {
   ClockIcon,
   ShoppingCartIcon,
@@ -22,9 +23,50 @@ const ProductCardV2 = ({
   getCardStyle,
   getTextStyle,
   forceLightText = false,
+  autoAddToCart = true,
 }) => {
   const { isLight } = useTheme();
+  const { agregarAlCarrito } = useCart();
+  const [localAdded, setLocalAdded] = useState(Boolean(added));
   const useLightTextStyle = isLight || forceLightText;
+
+  useEffect(() => {
+    if (typeof added !== "undefined") {
+      setLocalAdded(Boolean(added));
+    }
+  }, [added]);
+
+  const isAdded = typeof added !== "undefined" ? Boolean(added) : localAdded;
+
+  const parsedPrice = useMemo(() => {
+    if (typeof price === "number") return price;
+    if (typeof price === "string") {
+      const normalized = Number(price.replace(/[^\d.]/g, ""));
+      return Number.isFinite(normalized) ? normalized : 0;
+    }
+    return 0;
+  }, [price]);
+
+  const handleAddClick = () => {
+    if (autoAddToCart) {
+      agregarAlCarrito({
+        id: id ?? `${title || label || "producto"}-${Date.now()}`,
+        nombre: title || label || "Producto",
+        precio: parsedPrice,
+        imagen: image,
+        descripcion: label || "Producto",
+        cantidad: 1,
+      });
+    }
+
+    if (onAdd) {
+      onAdd(id);
+    }
+
+    if (typeof added === "undefined") {
+      setLocalAdded((prev) => !prev);
+    }
+  };
 
   const getButtonStyle = () => {
     const baseStyle = {
@@ -32,7 +74,7 @@ const ProductCardV2 = ({
     };
 
     // Nota: Aquí también aplico la lógica al color del texto del botón si no está agregado
-    if (added) {
+    if (isAdded) {
       return { ...baseStyle, backgroundColor: isLight ? "#22c55e" : "#15803d", color: "#fff" };
     }
 
@@ -129,19 +171,19 @@ const ProductCardV2 = ({
 
         {/* Botón 🛒 */}
         <button
-          onClick={() => onAdd(id)}
+          onClick={handleAddClick}
           className="flex py-3 w-full px-3 mt-3 mb-4 h-10 rounded-4xl items-center justify-center transition-all duration-600 hover:opacity-90 whitespace-nowrap cursor-pointer"
           style={getButtonStyle()}
         >
           <div
             className={`flex items-center gap-1.5 transition-all duration-900 ${
-              added ? "flex-row-reverse" : "flex-row"
+              isAdded ? "flex-row-reverse" : "flex-row"
             }`}
           >
             <ShoppingCartIcon
-              color={added ? "#ffffff" : isLight ? "#484900" : "#251F67"}
+              color={isAdded ? "#ffffff" : isLight ? "#484900" : "#251F67"}
               className={`w-4 h-4 transition-all duration-500 ${
-                added ? "translate-x-2" : "translate-x-0"
+                isAdded ? "translate-x-2" : "translate-x-0"
               }`}
             />
             <h1
@@ -156,7 +198,7 @@ const ProductCardV2 = ({
                 whiteSpace: "nowrap",
               }}
             >
-              {added ? "Agregado" : "Agregar al carrito"}
+              {isAdded ? "Agregado" : "Agregar al carrito"}
             </h1>
           </div>
         </button>

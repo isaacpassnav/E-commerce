@@ -7,6 +7,11 @@ import {
   IconYouTube2,
   IconLinkedIn2,
   IconTikTok2,
+  MiCuentaIcon,
+  MisComprasIcon,
+  PromocionesIcon,
+  FavoritosIcon,
+  CerrarSesionIcon,
 } from "../../assets/iconos/Icons";
 
 import { CategoriasDetalle } from "./categoriasDetalle.js";
@@ -60,6 +65,7 @@ border-radius: 9999px;
 
 export default function MenuDropdownMobile({ isOpen, onClose }) {
   const [categoriaActiva, setCategoriaActiva] = useState(null);
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const [theme, setTheme] = useState(() => {
     return document.documentElement.getAttribute("data-theme") || "light";
   });
@@ -141,6 +147,14 @@ export default function MenuDropdownMobile({ isOpen, onClose }) {
   };
 
   const Categorias = Object.keys(CategoriasDetalle);
+  const quickAccessItems = [
+    { label: "Iniciar sesion", route: "/login", icon: MiCuentaIcon },
+    { label: "Mi cuenta", route: "/perfil", icon: MiCuentaIcon },
+    { label: "Mis compras", route: "/mis-compras", icon: MisComprasIcon },
+    { label: "Promociones", route: "/ofertas", icon: PromocionesIcon },
+    { label: "Favoritos", route: "/perfil_favoritos", icon: FavoritosIcon },
+    { label: "Cerrar sesion", route: "/login", icon: CerrarSesionIcon },
+  ];
 
   if (animationState === "closed") return null;
 
@@ -197,9 +211,11 @@ export default function MenuDropdownMobile({ isOpen, onClose }) {
         <style>{animations}</style>
 
         <div className="flex justify-between items-center px-0 mb-3">
-          <div
+          <button
+            type="button"
             className="flex items-center gap-4 py-3 cursor-pointer"
             style={{ marginLeft: 0, opacity: 1, paddingLeft: 8 }}
+            onClick={() => setShowUserMenu((prev) => !prev)}
           >
             <div style={{ width: 40, height: 40, flexShrink: 0 }}>
               <AvatarNuevo
@@ -213,9 +229,16 @@ export default function MenuDropdownMobile({ isOpen, onClose }) {
             >
               Hola,
               <br />
-              Inicie Sesión
+              Inicia sesion
             </span>
-          </div>
+            <span className="ml-1">
+              <FlechaAbajo
+                style={{
+                  transform: showUserMenu ? "rotate(180deg)" : "rotate(0deg)",
+                }}
+              />
+            </span>
+          </button>
           <div
             className="flex items-center py-3 gap-2"
             style={{ paddingRight: 8 }}
@@ -241,6 +264,32 @@ export default function MenuDropdownMobile({ isOpen, onClose }) {
             margin: "5px auto 5px auto",
           }}
         />
+
+        {showUserMenu && (
+          <div className="px-2 pb-3">
+            <div className="flex flex-col gap-1 rounded-2xl bg-[#2C509E66] p-2">
+              {quickAccessItems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <button
+                    key={item.label}
+                    type="button"
+                    onClick={() => {
+                      navigate(item.route);
+                      handleClose();
+                    }}
+                    className="flex items-center gap-3 text-white text-sm rounded-full px-3 py-2 hover:bg-[#E4E66666] transition-colors cursor-pointer"
+                  >
+                    <span className="flex items-center justify-center w-5 h-5">
+                      <Icon />
+                    </span>
+                    <span>{item.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         <h2
           className="text-white font-poppins mb-2"
@@ -412,3 +461,4 @@ export default function MenuDropdownMobile({ isOpen, onClose }) {
     </>
   );
 }
+

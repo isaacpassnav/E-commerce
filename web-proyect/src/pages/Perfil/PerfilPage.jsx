@@ -1,13 +1,28 @@
 // src/pages/Perfil/PerfilPage.jsx
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import ProfileSidebar from "../../components/profile/ProfileSidebar";
 import ProfileMain from "../../components/profile/ProfileMain";
 import { useTheme } from "../../components/ThemeContext";
 
 export default function PerfilPage({ user, isLoggedIn, onLogout, onUpdateName }) {
-  const [activeSection, setActiveSection] = useState("profile");
+  const location = useLocation();
+  const sectionByPath = {
+    "/perfil": "profile",
+    "/mis-compras": "orders",
+    "/perfil_favoritos": "favorites",
+    "/tarjetas": "cards",
+    "/soporte": "support",
+  };
+  const [activeSection, setActiveSection] = useState(
+    sectionByPath[location.pathname] || "profile"
+  );
   const [isEditing, setIsEditing] = useState(false);
   const { isLight } = useTheme();
+
+  useEffect(() => {
+    setActiveSection(sectionByPath[location.pathname] || "profile");
+  }, [location.pathname]);
 
   return (
     <div
